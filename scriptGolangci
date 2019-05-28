@@ -1,0 +1,33 @@
+#install golangci-lint and import script into /go/bin. It will copy results into jenkins file from which you can manually cat results. The Warning-ng can read only GOLINT results.
+
+import os
+from datetime import datetime
+print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+os.system(str(time))
+os.system("ls")
+#output
+output = "test.txt"
+#time
+x = 0
+for x in range(0, 3):
+    os.system('date' + ' ' + '>' + ' ' +output)
+    #target
+    directoryToScan = "mattermost-server"
+    #directory
+    golangciLine = "./"+directoryToScan+"/..."
+    jshintLine = "./"+directoryToScan+"/"
+    #jshint
+    print ("Start jshint "+directoryToScan)
+    os.system("jshint"+" "+jshintLine+" "+">>"+" "+output)
+    #golangci
+    print ("Start golangci-lint "+ directoryToScan)
+    os.system("golangci-lint" + " " + "run" + " " +golangciLine+ " " + ">>" + " " + output)
+    #copy
+    print ("Move report to Jenkins folder")
+    fileOne = output
+    fileTwo = output
+    locationOne = "" + fileOne
+    locationTwo = "/var/lib/jenkins/workspace/golint/" + fileTwo
+    os.system("cp" + " " + locationOne + " " + locationTwo)
+    os.system("ls")
